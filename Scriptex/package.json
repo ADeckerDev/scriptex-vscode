@@ -12,10 +12,44 @@
   "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "Scriptex.helloWorld",
-      "title": "Hello World"
-    }]
+    "commands": [
+      {
+        "command": "Scriptex.helloWorld",
+        "title": "Hello World"
+      }
+    ],
+    "languages": [
+      {
+        "id": "scriptex",
+        "aliases": ["Scriptex", "scriptex"],
+        "extensions": [".sctx"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "scriptex",
+        "scopeName": "source.scriptex",
+        "path": "./syntaxes/scriptex.tmLanguage.json"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "scriptexContainer",
+          "title": "Scriptex",
+          "icon": "images/scriptex-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "scriptexContainer": [
+        {
+          "id": "scriptexView",
+          "name": "Scriptex Tools"
+        }
+      ]
+    }
   },
   "scripts": {
     "lint": "eslint .",

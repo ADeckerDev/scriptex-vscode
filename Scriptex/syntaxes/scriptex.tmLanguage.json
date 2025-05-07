@@ -1,0 +1,42 @@
+{
+    "scopeName": "source.scriptex",
+    "patterns": [
+      {
+        "name": "comment.line.percentage.scriptex",
+        "match": "%.*$"
+      },
+      {
+        "name": "keyword.control.command.scriptex",
+        "match": "\\\\[a-zA-Z]+"
+      },
+      {
+        "name": "meta.braces.scriptex",
+        "begin": "\\{",
+        "end": "\\}",
+        "patterns": [
+          {
+            "include": "#insideBraces"
+          }
+        ]
+      },
+      {
+        "name": "markup.bold.scriptex",
+        "match": "\\*\\*(.*?)\\*\\*"
+      },
+      {
+        "name": "markup.italic.scriptex",
+        "match": "\\*(.*?)\\*"
+      }
+    ],
+    "repository": {
+      "insideBraces": {
+        "patterns": [
+          {
+            "include": "$self"
+          }
+        ]
+      }
+    },
+    "scopeName": "source.scriptex"
+  }
+  
