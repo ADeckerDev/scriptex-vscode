@@ -22,7 +22,11 @@
       },
       {
         "command": "Scriptex.showPreview",
-        "title": "Scriptex: Show Live Preview"
+        "title": "Scriptex: Show Live Preview",
+        "icon": {
+          "light": "images/light/preview.svg",
+          "dark": "images/dark/preview.svg"
+        }
       }
     ],
     "languages": [
@@ -40,20 +44,19 @@
         "path": "./syntaxes/scriptex.tmLanguage.json"
       }
     ],
-    "viewsContainers": {
-      "activitybar": [
+    "iconThemes": [
+      {
+        "id": "scriptex-icons",
+        "label": "Scriptex Icons",
+        "path": "./scriptex-icon-theme.json"
+      }
+    ],
+    "menus": {
+      "editor/title": [
         {
-          "id": "scriptexContainer",
-          "title": "Scriptex",
-          "icon": "images/scriptex-icon.svg"
-        }
-      ]
-    },
-    "views": {
-      "scriptexContainer": [
-        {
-          "id": "scriptexView",
-          "name": "Scriptex Tools"
+          "command": "Scriptex.showPreview",
+          "when": "resourceLangId == scriptex",
+          "group": "navigation"
         }
       ]
     }
