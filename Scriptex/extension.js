@@ -1,36 +1,76 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
-
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+const { compileScriptexToHtml } = require('./compiler/scriptexCompiler');
 
 /**
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
+    console.log('✅ Scriptex extension activated');
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "Scriptex" is now active!');
+    let currentPanel = null;
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('Scriptex.helloWorld', function () {
-		// The code you place here will be executed every time your command is executed
+    const previewCommand = vscode.commands.registerCommand('Scriptex.showPreview', () => {
+        try {
+            const editor = vscode.window.activeTextEditor;
+            if (!editor) {
+                vscode.window.showWarningMessage('⚠ No active editor!');
+                return;
+            }
 
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from scriptex-vscode!');
-	});
+            console.log('📝 Active editor detected:', editor.document.uri.fsPath);
 
-	context.subscriptions.push(disposable);
+            const document = editor.document;
+            const htmlContent = compileScriptexToHtml(document.getText());
+
+            if (currentPanel) {
+                console.log('🔄 Updating existing preview panel');
+                currentPanel.webview.html = htmlContent;
+                currentPanel.reveal(vscode.ViewColumn.Beside);
+            } else {
+                console.log('🆕 Creating new preview panel');
+                currentPanel = vscode.window.createWebviewPanel(
+                    'scriptexPreview',        // panel type
+                    'Scriptex Preview',       // panel title
+                    vscode.ViewColumn.Beside, // beside editor
+                    {
+                        enableScripts: true,
+                        retainContextWhenHidden: true
+                    }
+                );
+
+                currentPanel.webview.html = htmlContent;
+
+                currentPanel.onDidDispose(() => {
+                    console.log('❌ Preview panel closed');
+                    currentPanel = null;
+                }, null, context.subscriptions);
+            }
+        } catch (err) {
+            console.error('❗ Error in Scriptex.showPreview command:', err);
+            vscode.window.showErrorMessage('Error opening Scriptex preview. Check console for details.');
+        }
+    });
+
+    context.subscriptions.push(previewCommand);
+
+    vscode.workspace.onDidChangeTextDocument(event => {
+        if (
+            currentPanel &&
+            event.document === vscode.window.activeTextEditor.document &&
+            event.document.languageId === 'scriptex'
+        ) {
+            console.log('✏ Detected document change, updating preview');
+            const updatedHtml = compileScriptexToHtml(event.document.getText());
+            currentPanel.webview.html = updatedHtml;
+        }
+    });
 }
 
-// This method is called when your extension is deactivated
-function deactivate() {}
+function deactivate() {
+    console.log('🛑 Scriptex extension deactivated');
+}
 
 module.exports = {
-	activate,
-	deactivate
-}
+    activate,
+    deactivate
+};

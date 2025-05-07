@@ -1,0 +1,13 @@
+{
+    "iconDefinitions": {
+      "scriptex-icon": {
+        "iconPath": "./images/scriptex-icon.svg"
+      }
+    },
+    "fileExtensions": {
+      "sctx": "scriptex-icon"
+    },
+    "folderNames": {},
+    "languageIds": {}
+  }
+  

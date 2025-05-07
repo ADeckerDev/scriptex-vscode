@@ -9,13 +9,20 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:Scriptex.helloWorld",
+    "onCommand:Scriptex.showPreview"
+  ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
       {
         "command": "Scriptex.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "Scriptex.showPreview",
+        "title": "Scriptex: Show Live Preview"
       }
     ],
     "languages": [
