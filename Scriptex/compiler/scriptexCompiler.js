@@ -1,20 +1,39 @@
+let supportedCommands = [
+    "clist",
+    "cover",
+    "item",
+    "blurb",
+    "expo",
+    "ping"
+];
+
 function compileScriptexToHtml(text) {
     // For now, wrap raw content for testing
-    return `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <style>
-                body { font-family: sans-serif; padding: 2em; }
-                h1 { color: #d63384; }
-            </style>
-        </head>
-        <body>
-            <h1>Scriptex Preview</h1>
-            <pre>${text}</pre>
-        </body>
-        </html>
-    `;
+
+    var document = `
+    <!DOCTYPE html>
+    <html>
+    <p>`
+
+    // Open text stream
+    text.split('\n').forEach(line => {
+        if (line[0] === "\\"){
+            
+        }
+    });
+
+    //close and return HTML
+    return document += `
+    </p>
+    </html>`;
+}
+
+function commandPass(command){
+
+}
+
+function throwFit(errorMessage){
+    
 }
 
 module.exports = { compileScriptexToHtml };
