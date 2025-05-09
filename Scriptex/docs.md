@@ -7,6 +7,14 @@ Commands are preceded with a `\` character. Contents may be optional, and are co
 ```
 \example{Contents}a
 ```
+
+or
+
+```
+\example {
+    contents
+}a
+```
 a being a modifier in this case.
 
 ### \cover
