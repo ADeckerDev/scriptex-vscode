@@ -10,4 +10,4 @@ In addition to some borrowed features from Markdown and Latex respectively, Scri
 
 this project is a extension for Visual Studio code. since its in beta there are no compiled releases yet ☹️
 
-SSH TEST
+
